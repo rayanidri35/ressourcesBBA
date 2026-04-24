@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figures Chartistes — Guide Complet BBA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0e0e11;--surface:#141418;--surface2:#1a1a20;--surface3:#222228;
+  --border:#252530;--border2:#333340;--border3:#484858;
+  --white:#f5f0e8;--light:#ccc5b5;--mid:#888078;--muted:#504840;
+  --gold:#c8983a;--gold2:#e8be60;--gold3:#a07828;
+  --gold-bg:rgba(200,152,58,.06);--gold-border:rgba(200,152,58,.28);
+  --green:#5aaa6a;--green-bg:rgba(90,170,106,.08);--green-border:rgba(90,170,106,.30);
+  --red:#c05050;--red-bg:rgba(192,80,80,.08);--red-border:rgba(192,80,80,.28);
+  --plat:#9890b8;--plat2:#bab0d8;--plat-bg:rgba(152,144,184,.08);--plat-border:rgba(152,144,184,.28);
+  --orange:#c87840;--font-d:'Playfair Display',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;--font-m:'DM Mono',monospace;--radius:2px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--light);font-family:var(--font-b);font-size:13px;line-height:1.75;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:0}
+.page{max-width:1100px;margin:0 auto;padding:0 28px 120px;position:relative;z-index:1}
+
+/* HERO */
+.hero{padding:80px 0 56px;text-align:center;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse at 50% 30%,rgba(200,152,58,.08) 0%,transparent 65%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-border);background:var(--gold-bg);padding:5px 18px;border-radius:var(--radius);margin-bottom:24px}
+.hero h1{font-family:var(--font-d);font-size:clamp(36px,5.5vw,72px);font-weight:900;letter-spacing:-2px;line-height:1.0;color:var(--white)}
+.hero h1 em{font-style:italic;color:var(--gold2);display:block}
+.hero-sub{margin-top:14px;color:var(--mid);font-size:13px;font-weight:300;letter-spacing:.5px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:28px}
+.hpill{font-family:var(--font-m);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:var(--radius);border:1px solid var(--border3);color:var(--mid)}
+.hpill.g{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.hpill.r{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+.hpill.p{background:var(--plat-bg);border-color:var(--plat-border);color:var(--plat2)}
+.hpill.gold{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold2)}
+
+/* MAIN TABS NAV */
+.main-tabs-nav{position:sticky;top:0;z-index:100;background:rgba(14,14,17,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.main-tabs-inner{max-width:1100px;margin:0 auto;padding:0 28px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.main-tabs-inner::-webkit-scrollbar{display:none}
+.mtab{font-family:var(--font-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:16px 20px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer;background:transparent;border-left:none;border-right:none;border-top:none;transition:color .2s,border-color .2s;flex-shrink:0}
+.mtab:hover{color:var(--gold);border-bottom-color:var(--gold3)}
+.mtab.active{color:var(--gold2);border-bottom-color:var(--gold2)}
+
+/* TAB PANELS */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* SECTIONS */
+.section{margin-top:64px;padding-top:16px}
+.section-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--font-d);font-size:52px;font-weight:900;color:rgba(200,152,58,.07);line-height:1;flex-shrink:0;letter-spacing:-3px;min-width:66px}
+.section-title{font-family:var(--font-d);font-size:clamp(20px,2.8vw,30px);font-weight:800;color:var(--white);letter-spacing:-.5px;line-height:1.1}
+.section-title em{color:var(--gold2);font-style:italic}
+.section-title::after{content:'';display:block;width:32px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px;border-radius:1px}
+.section-desc{font-size:12.5px;color:var(--mid);margin-top:5px}
+
+/* FIGURE CARDS */
+.figure-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+@media(max-width:760px){.figure-grid{grid-template-columns:1fr}}
+.fig-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+.fig-card:hover{border-color:var(--border3)}
+.fig-card.bullish{border-top:2px solid var(--green)}
+.fig-card.bearish{border-top:2px solid var(--red)}
+.fig-card.neutral{border-top:2px solid var(--gold2)}
+.fig-header{padding:16px 18px 12px;border-bottom:1px solid var(--border)}
+.fig-type{font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.fig-type.bull{color:var(--green)}
+.fig-type.bear{color:var(--red)}
+.fig-type.cont{color:var(--gold2)}
+.fig-name{font-family:var(--font-d);font-size:18px;font-weight:800;color:var(--white);letter-spacing:-.3px}
+.fig-name em{font-style:italic;color:var(--gold2)}
+.fig-body{padding:16px 18px}
+.svg-wrap{background:#08080e;border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:14px;overflow:hidden}
+.fig-body svg{width:100%;height:auto;display:block}
+.fig-desc{font-size:12px;color:var(--mid);line-height:1.7;margin-bottom:12px}
+.fig-rules{display:flex;flex-direction:column;gap:5px}
+.rule{display:flex;align-items:flex-start;gap:10px;font-size:11.5px;padding:7px 10px;border-radius:var(--radius);background:var(--surface2);border:1px solid var(--border)}
+.rule-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.rule-dot.g{background:var(--green)}
+.rule-dot.r{background:var(--red)}
+.rule-dot.gold{background:var(--gold2)}
+.rule-dot.plat{background:var(--plat2)}
+.trade-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.trade-pill{font-family:var(--font-m);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:var(--radius)}
+.tp-entry{background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold2)}
+.tp-sl{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.tp-tp{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+
+/* INTRO PANEL */
+.intro-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:28px 32px;margin-top:48px;position:relative;overflow:hidden}
+.intro-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold2),transparent)}
+.intro-box h2{font-family:var(--font-d);font-size:22px;font-weight:800;color:var(--white);margin-bottom:10px}
+.intro-box p{font-size:12.5px;color:var(--mid);line-height:1.8;max-width:720px}
+
+/* 2-col layout inside card */
+.fig-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:560px){.fig-two{grid-template-columns:1fr}}
+.fig-col-label{font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.fig-col-label.g{color:var(--green)}
+.fig-col-label.r{color:var(--red)}
+
+/* LEGEND */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.leg-item{display:flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--mid)}
+.leg-line{width:20px;height:2px;border-radius:1px}
+.leg-dash{width:20px;height:0;border-top:2px dashed}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:1px}
+.badge.strong{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.badge.medium{background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold2)}
+.badge.weak{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+
+.label-micro{font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
+.mt8{margin-top:8px}
+.mt16{margin-top:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="page">
+<div class="hero">
+  <div class="hero-eyebrow">BBA — Académie · Analyse Technique</div>
+  <h1>Figures <em>Chartistes</em></h1>
+  <p class="hero-sub">Guide complet pour débutants · Retournement & Continuation · Lecture de marché</p>
+  <div class="hero-pills">
+    <span class="hpill g">Figures haussières</span>
+    <span class="hpill r">Figures baissières</span>
+    <span class="hpill gold">Continuation</span>
+    <span class="hpill p">Graphiques détaillés</span>
+  </div>
+</div>
+</div>
+
+<!-- MAIN TABS -->
+<div class="main-tabs-nav">
+  <div class="main-tabs-inner">
+    <button class="mtab active" onclick="switchTab('intro')">Introduction</button>
+    <button class="mtab" onclick="switchTab('retournement')">Figures de Retournement</button>
+    <button class="mtab" onclick="switchTab('continuation')">Figures de Continuation</button>
+    <button class="mtab" onclick="switchTab('guide')">Comment trader</button>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB : INTRO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="tab-intro" class="tab-panel active">
+
+  <div class="intro-box">
+    <h2>Qu'est-ce qu'une figure chartiste ?</h2>
+    <p>Une figure chartiste est un <strong style="color:var(--white)">motif visuel récurrent</strong> qui se forme sur un graphique de prix. Ces figures représentent la psychologie collective des traders — la lutte entre acheteurs et vendeurs — et permettent d'anticiper la <strong style="color:var(--gold2)">prochaine direction probable du prix</strong>.<br><br>
+    Il existe deux grandes familles : les figures de <strong style="color:var(--green)">retournement</strong> (le prix va changer de direction) et les figures de <strong style="color:var(--gold2)">continuation</strong> (le prix va reprendre sa tendance initiale).</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div>
+        <div class="section-title">Les deux familles <em>essentielles</em></div>
+        <div class="section-desc">Comprendre la différence avant d'aller plus loin</div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="fig-card bullish" style="padding:0">
+        <div style="padding:20px 22px">
+          <div class="fig-type bull">Famille 1</div>
+          <div class="fig-name" style="font-size:20px">Retournement</div>
+          <p class="fig-desc" style="margin-top:10px">Le prix est en tendance (hausse ou baisse), puis forme une figure qui <strong style="color:var(--white)">signale un changement de direction</strong>. La force qui dominait s'épuise et l'opposée prend le contrôle.</p>
+          <div class="rule mt8"><div class="rule-dot g"></div><span>Tendance haussière → figure de retournement → <strong style="color:var(--red)">baisse attendue</strong></span></div>
+          <div class="rule mt8"><div class="rule-dot r"></div><span>Tendance baissière → figure de retournement → <strong style="color:var(--green)">hausse attendue</strong></span></div>
+        </div>
+      </div>
+      <div class="fig-card neutral" style="padding:0">
+        <div style="padding:20px 22px">
+          <div class="fig-type cont">Famille 2</div>
+          <div class="fig-name" style="font-size:20px">Continuation</div>
+          <p class="fig-desc" style="margin-top:10px">Le prix est en tendance, marque une <strong style="color:var(--white)">pause de consolidation</strong>, puis reprend dans la même direction. C'est une opportunité d'entrer dans la tendance existante.</p>
+          <div class="rule mt8"><div class="rule-dot gold"></div><span>Tendance haussière → pause → <strong style="color:var(--green)">hausse qui reprend</strong></span></div>
+          <div class="rule mt8"><div class="rule-dot gold"></div><span>Tendance baissière → pause → <strong style="color:var(--red)">baisse qui reprend</strong></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fig-card neutral" style="margin-top:16px;padding:20px 22px">
+      <div class="fig-type cont">Règle d'or pour les débutants</div>
+      <div class="fig-name" style="font-size:17px;margin-bottom:10px">Les 3 étapes pour lire une figure</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:16px">
+          <div style="font-family:var(--font-d);font-size:32px;color:rgba(200,152,58,.15);font-weight:900">1</div>
+          <div style="font-size:12.5px;color:var(--white);font-weight:600;margin-bottom:4px">Identifier la tendance</div>
+          <div style="font-size:11.5px;color:var(--mid)">Le prix montait ou descendait avant la figure ? C'est le contexte indispensable.</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:16px">
+          <div style="font-family:var(--font-d);font-size:32px;color:rgba(200,152,58,.15);font-weight:900">2</div>
+          <div style="font-size:12.5px;color:var(--white);font-weight:600;margin-bottom:4px">Reconnaître la figure</div>
+          <div style="font-size:11.5px;color:var(--mid)">Attendre que la figure soit <em>complète</em>. Ne pas anticiper avant la cassure.</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:16px">
+          <div style="font-family:var(--font-d);font-size:32px;color:rgba(200,152,58,.15);font-weight:900">3</div>
+          <div style="font-size:12.5px;color:var(--white);font-weight:600;margin-bottom:4px">Attendre la cassure</div>
+          <div style="font-size:11.5px;color:var(--mid)">Entrer uniquement après la <strong style="color:var(--gold2)">cassure + clôture</strong> au-delà du niveau clé.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB : RETOURNEMENT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="tab-retournement" class="tab-panel">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div>
+        <div class="section-title">Figures de <em>Retournement</em></div>
+        <div class="section-desc">6 figures qui signalent un changement de direction — les plus importantes à maîtriser</div>
+      </div>
+    </div>
+
+    <div class="figure-grid">
+
+      <!-- ① ÉTÉ -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Retournement Baissier</div>
+          <div class="fig-name">Épaule <em>Tête</em> Épaule</div>
+        </div>
+        <div class="fig-body">
+          <div class="legend">
+            <div class="leg-item"><div class="leg-line" style="background:var(--gold2)"></div>Ligne de cou</div>
+            <div class="leg-item"><div class="leg-line" style="background:var(--red)"></div>Signal baissier</div>
+          </div>
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="redFade" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c05050" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#c05050" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid -->
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="80" x2="420" y2="80" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="120" x2="420" y2="120" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="160" x2="420" y2="160" stroke="#252530" stroke-width="1"/>
+              <!-- Prix path -->
+              <path d="M20,140 L60,100 L80,120 L120,60 L160,120 L200,75 L230,120 L270,140 L320,155 L400,165" fill="none" stroke="#c05050" stroke-width="2" stroke-linejoin="round"/>
+              <!-- Remplissage sous cassure -->
+              <path d="M230,120 L270,140 L320,155 L400,165 L400,180 L230,180 Z" fill="url(#redFade)"/>
+              <!-- Ligne de cou -->
+              <line x1="80" y1="120" x2="350" y2="120" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="6,4"/>
+              <!-- Étiquettes -->
+              <text x="60" y="97" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Épaule G</text>
+              <text x="120" y="50" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Tête</text>
+              <text x="200" y="66" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Épaule D</text>
+              <!-- Points clés -->
+              <circle cx="60" cy="100" r="4" fill="#c05050"/>
+              <circle cx="120" cy="60" r="5" fill="#c05050"/>
+              <circle cx="200" cy="75" r="4" fill="#c05050"/>
+              <!-- Ligne de cou label -->
+              <text x="358" y="117" fill="#e8be60" font-size="8" font-family="DM Mono,monospace">Ligne de cou</text>
+              <!-- Flèche cassure -->
+              <path d="M255,128 L255,155 L265,148 M255,155 L245,148" fill="none" stroke="#c05050" stroke-width="1.5"/>
+              <text x="270" y="148" fill="#c05050" font-size="9" font-family="DM Mono,monospace">CASSURE ↓</text>
+              <!-- Tendance initiale -->
+              <text x="20" y="165" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace">Tendance haussière</text>
+            </svg>
+          </div>
+          <p class="fig-desc">La figure la plus connue. Après une hausse, le prix forme <strong style="color:var(--white)">3 sommets</strong> : le central (la "tête") est le plus haut, les deux latéraux (les "épaules") sont plus bas et à peu près au même niveau.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--white)">Épaule gauche</strong> : 1er sommet après la tendance haussière</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--white)">Tête</strong> : sommet le plus haut — dernier effort des acheteurs</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--white)">Épaule droite</strong> : 3ème sommet, plus bas → les acheteurs s'épuisent</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Signal</strong> : cassure sous la ligne de cou avec volume élevé</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : au-dessus épaule droite</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur de la tête</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② ÉTÉ INVERSÉE -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Retournement Haussier</div>
+          <div class="fig-name">ÉTÉ <em>Inversée</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="legend">
+            <div class="leg-item"><div class="leg-line" style="background:var(--gold2)"></div>Ligne de cou</div>
+            <div class="leg-item"><div class="leg-line" style="background:var(--green)"></div>Signal haussier</div>
+          </div>
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="greenFade" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#5aaa6a" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#5aaa6a" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="80" x2="420" y2="80" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="120" x2="420" y2="120" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="160" x2="420" y2="160" stroke="#252530" stroke-width="1"/>
+              <!-- Prix path -->
+              <path d="M20,40 L60,80 L80,60 L120,120 L160,60 L200,105 L230,60 L270,40 L350,20 L400,15" fill="none" stroke="#5aaa6a" stroke-width="2" stroke-linejoin="round"/>
+              <!-- Fill -->
+              <path d="M230,60 L270,40 L350,20 L400,15 L400,0 L230,0 Z" fill="url(#greenFade)"/>
+              <!-- Ligne de cou -->
+              <line x1="80" y1="60" x2="350" y2="60" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="6,4"/>
+              <!-- Labels -->
+              <text x="60" y="84" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Épaule G</text>
+              <text x="120" y="134" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Tête</text>
+              <text x="200" y="119" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Épaule D</text>
+              <circle cx="60" cy="80" r="4" fill="#5aaa6a"/>
+              <circle cx="120" cy="120" r="5" fill="#5aaa6a"/>
+              <circle cx="200" cy="105" r="4" fill="#5aaa6a"/>
+              <text x="358" y="57" fill="#e8be60" font-size="8" font-family="DM Mono,monospace">Ligne de cou</text>
+              <path d="M248,52 L248,28 L258,35 M248,28 L238,35" fill="none" stroke="#5aaa6a" stroke-width="1.5"/>
+              <text x="262" y="35" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace">CASSURE ↑</text>
+              <text x="20" y="28" fill="#c05050" font-size="8" font-family="DM Mono,monospace">Tendance baissière</text>
+            </svg>
+          </div>
+          <p class="fig-desc">L'exact miroir de l'ÉTÉ classique. Après une baisse, 3 creux se forment : le central (la "tête") est le plus bas, les épaules sont à mi-chemin. Signal de renversement haussier.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Contexte : tendance <strong style="color:var(--red)">baissière</strong> avant la figure</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>La tête est le <strong style="color:var(--white)">creux le plus profond</strong></span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>L'épaule droite est <strong style="color:var(--white)">moins profonde</strong> que la gauche</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Signal</strong> : cassure au-dessus de la ligne de cou</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : sous épaule droite</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur de la tête</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ DOUBLE TOP -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Retournement Baissier</div>
+          <div class="fig-name">Double <em>Top</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Prix -->
+              <path d="M20,155 L80,60 L130,100 L185,62 L240,120 L310,145 L400,160" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Résistance des deux tops -->
+              <line x1="70" y1="60" x2="200" y2="60" stroke="#c05050" stroke-width="1" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- LIGNE DE COU — niveau du creux intermédiaire, étendue jusqu'à la cassure -->
+              <line x1="120" y1="100" x2="350" y2="100" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <!-- Badge ligne de cou -->
+              <rect x="345" y="90" width="70" height="14" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="380" y="100" fill="#e8be60" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Points -->
+              <circle cx="80" cy="60" r="5" fill="#c05050"/>
+              <circle cx="185" cy="62" r="5" fill="#c05050"/>
+              <circle cx="130" cy="100" r="5" fill="#e8be60"/>
+              <!-- Étiquettes -->
+              <text x="130" y="40" fill="#c05050" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="bold">M</text>
+              <text x="80" y="52" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Top 1</text>
+              <text x="185" y="54" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Top 2</text>
+              <!-- Flèche cassure sous la ligne de cou -->
+              <path d="M255,106 L255,132 L263,125 M255,132 L247,125" fill="none" stroke="#c05050" stroke-width="2"/>
+              <text x="268" y="128" fill="#c05050" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↓</text>
+              <text x="20" y="170" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace">Tendance haussière</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Le prix teste deux fois le même niveau de résistance sans parvenir à le franchir — formant un "M". La deuxième tentative échoue, signalant l'épuisement des acheteurs.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span>Deux sommets <strong style="color:var(--white)">au même niveau</strong> (±2-3%)</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Un creux intermédiaire forme le <strong style="color:var(--white)">support</strong></span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Le 2ème top peut être légèrement plus bas → signe de faiblesse</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Confirmation</strong> : cassure sous le creux intermédiaire</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : au-dessus des tops</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur de la figure</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ④ DOUBLE BOTTOM -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Retournement Haussier</div>
+          <div class="fig-name">Double <em>Bottom</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Prix -->
+              <path d="M20,25 L80,120 L130,80 L185,118 L240,60 L310,35 L400,20" fill="none" stroke="#5aaa6a" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Support des deux bottoms -->
+              <line x1="70" y1="120" x2="200" y2="120" stroke="#5aaa6a" stroke-width="1" stroke-dasharray="5,4" opacity="0.6"/>
+              <!-- LIGNE DE COU — niveau du sommet intermédiaire, étendue jusqu'à la cassure -->
+              <line x1="120" y1="80" x2="350" y2="80" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <!-- Badge ligne de cou -->
+              <rect x="345" y="71" width="70" height="14" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="380" y="81" fill="#e8be60" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Points -->
+              <circle cx="80" cy="120" r="5" fill="#5aaa6a"/>
+              <circle cx="185" cy="118" r="5" fill="#5aaa6a"/>
+              <circle cx="130" cy="80" r="5" fill="#e8be60"/>
+              <!-- Étiquettes -->
+              <text x="130" y="168" fill="#5aaa6a" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="bold">W</text>
+              <text x="80" y="136" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Bottom 1</text>
+              <text x="185" y="134" fill="#888078" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">Bottom 2</text>
+              <!-- Flèche cassure au-dessus de la ligne de cou -->
+              <path d="M248,74 L248,50 L257,57 M248,50 L239,57" fill="none" stroke="#5aaa6a" stroke-width="2"/>
+              <text x="260" y="52" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↑</text>
+              <text x="20" y="15" fill="#c05050" font-size="8" font-family="DM Mono,monospace">Tendance baissière</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Miroir du Double Top. Le prix teste deux fois le même support sans le casser — formant un "W". Après le 2ème rebond, une cassure de la résistance intermédiaire confirme le renversement.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Deux creux <strong style="color:var(--white)">au même niveau</strong> de support</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Un sommet intermédiaire forme la <strong style="color:var(--white)">résistance</strong></span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Le 2ème bottom peut être légèrement plus haut → signal haussier</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Confirmation</strong> : cassure au-dessus de la résistance</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : sous les bottoms</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur de la figure</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ CONSOLIDATION HAUSSIÈRE + RETOURNEMENT -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Retournement Haussier</div>
+          <div class="fig-name">Consolidation baissière <em>+ retournement</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="greenFadeConsolB" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#5aaa6a" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#5aaa6a" stop-opacity="0.18"/>
+                </linearGradient>
+              </defs>
+              <!-- Grille -->
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+
+              <!-- Tendance baissière initiale -->
+              <path d="M15,18 L55,55 L75,42 L105,72 L130,58 L150,88" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="18" y="14" fill="#c05050" font-size="8" font-family="DM Mono,monospace">Baisse</text>
+
+              <!-- Zone de consolidation étendue jusqu'à la cassure -->
+              <rect x="150" y="72" width="155" height="42" fill="rgba(200,152,58,0.06)" stroke="#e8be60" stroke-width="1" stroke-dasharray="4,3" rx="1"/>
+
+              <!-- LIGNE DE COU = haut du range, niveau d'entrée -->
+              <line x1="150" y1="72" x2="320" y2="72" stroke="#e8be60" stroke-width="2.2"/>
+              <!-- Badge ligne de cou -->
+              <rect x="314" y="63" width="70" height="14" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="349" y="73" fill="#e8be60" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Support bas du range -->
+              <line x1="150" y1="114" x2="305" y2="114" stroke="#888078" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <!-- Label support -->
+              <text x="152" y="126" fill="#888078" font-size="7.5" font-family="DM Mono,monospace">SUPPORT (bas du range)</text>
+
+              <!-- Oscillation dans le range — bougies qui rebondissent entre les deux niveaux -->
+              <!-- 4 rebonds visibles : bas→haut→bas→haut→bas→haut jusqu'à cassure -->
+              <path d="M150,88 L168,114 L188,74 L208,112 L228,75 L248,111 L268,76 L285,113 L305,74" fill="none" stroke="#ccc5b5" stroke-width="1.8" stroke-linejoin="round"/>
+
+              <!-- Points de rebond sur le support -->
+              <circle cx="168" cy="114" r="3" fill="#e8be60" opacity="0.8"/>
+              <circle cx="208" cy="112" r="3" fill="#e8be60" opacity="0.8"/>
+              <circle cx="248" cy="111" r="3" fill="#e8be60" opacity="0.8"/>
+              <circle cx="285" cy="113" r="3" fill="#e8be60" opacity="0.8"/>
+
+              <!-- Points de test de la résistance -->
+              <circle cx="188" cy="74" r="3" fill="#e8be60" opacity="0.5"/>
+              <circle cx="228" cy="75" r="3" fill="#e8be60" opacity="0.5"/>
+              <circle cx="268" cy="76" r="3" fill="#e8be60" opacity="0.5"/>
+              <circle cx="305" cy="74" r="3" fill="#5aaa6a" opacity="1"/>
+
+              <!-- Label ZONE DE CONSOLIDATION (accumulation) -->
+              <text x="228" y="95" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">ACCUMULATION</text>
+
+              <!-- Cassure haussière depuis la résistance -->
+              <path d="M305,74 L330,52 L360,32 L400,12" fill="none" stroke="#5aaa6a" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+
+              <!-- Remplissage vert sous la cassure -->
+              <path d="M305,74 L330,52 L360,32 L400,12 L400,72 L305,72 Z" fill="url(#greenFadeConsolB)"/>
+
+              <!-- Flèche cassure -->
+              <path d="M308,69 L322,48 L330,55 M322,48 L315,56" fill="none" stroke="#5aaa6a" stroke-width="1.5"/>
+              <text x="334" y="46" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace" font-weight="bold">CASSURE ↑</text>
+              <text x="345" y="20" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace">Retournement</text>
+
+              <!-- Note bas -->
+              <text x="210" y="173" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Les vendeurs s'épuisent — chaque rebond sur le support est plus fort</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une baisse, le prix entre dans un <strong style="color:var(--white)">range horizontal</strong> (zone de consolidation). Les vendeurs s'épuisent, les acheteurs accumulent discrètement. Une cassure au-dessus du range confirme le retournement haussier.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span>Tendance baissière préalable bien établie</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Le prix consolide en range avec des hauts et bas <strong style="color:var(--white)">similaires</strong></span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Volume qui <strong style="color:var(--white)">diminue</strong> pendant la consolidation = bon signe</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Signal</strong> : clôture au-dessus du haut du range avec volume</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : sous le bas du range</span>
+            <span class="trade-pill tp-tp">Objectif : largeur du range</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑥ CONSOLIDATION BAISSIÈRE + RETOURNEMENT -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Retournement Baissier</div>
+          <div class="fig-name">Consolidation haussière <em>+ retournement</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Tendance haussière initiale -->
+              <path d="M20,160 L100,90 L120,105 L145,75" fill="none" stroke="#5aaa6a" stroke-width="2" stroke-linejoin="round"/>
+              <!-- Zone de consolidation étendue jusqu'à la cassure -->
+              <rect x="145" y="60" width="145" height="45" fill="rgba(192,80,80,0.05)" stroke="#c05050" stroke-width="1" stroke-dasharray="4,3"/>
+              <!-- Résistance haute du range (moins importante) -->
+              <line x1="145" y1="60" x2="290" y2="60" stroke="#888078" stroke-width="1.2" stroke-dasharray="4,3"/>
+              <!-- LIGNE DE COU = bas du range = niveau d'entrée -->
+              <line x1="145" y1="105" x2="320" y2="105" stroke="#e8be60" stroke-width="2.2"/>
+              <!-- Badge ligne de cou -->
+              <rect x="314" y="97" width="70" height="14" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="349" y="107" fill="#e8be60" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Oscillation jusqu'au point de cassure -->
+              <path d="M145,75 L165,62 L185,102 L205,65 L225,100 L245,63 L270,102 L290,65" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure baissière depuis le bas du range -->
+              <path d="M290,105 L320,130 L360,155 L400,168" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Labels -->
+              <text x="40" y="175" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace">Hausse</text>
+              <text x="195" y="52" fill="#c05050" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">ZONE DE DISTRIBUTION</text>
+              <text x="195" y="155" fill="#888078" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">(les acheteurs s'épuisent)</text>
+              <path d="M294,110 L310,135 L302,132 M310,135 L306,125" fill="none" stroke="#c05050" stroke-width="1.5"/>
+              <text x="315" y="132" fill="#c05050" font-size="9" font-family="DM Mono,monospace">CASSURE ↓</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une hausse, le prix entre dans un range où les acheteurs <strong style="color:var(--white)">distribuent</strong> leurs positions aux acheteurs tardifs. Une cassure sous le bas du range signale le retournement baissier.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Tendance haussière préalable bien établie</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Le prix consolide en range <strong style="color:var(--white)">au sommet de la hausse</strong></span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Volume qui augmente sur les bougies baissières dans le range</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Signal</strong> : clôture sous le bas du range avec volume élevé</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : au-dessus du haut du range</span>
+            <span class="trade-pill tp-tp">Objectif : largeur du range</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end figure-grid -->
+
+    <!-- ══ ENCADRÉ RÈGLE CLÔTURE ══ -->
+    <div style="margin-top:48px;position:relative;background:var(--surface);border:1px solid rgba(232,190,96,0.4);border-radius:var(--radius);overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold2),var(--gold3),transparent)"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold2),transparent)"></div>
+      <div style="padding:28px 32px">
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+          <div style="width:42px;height:42px;min-width:42px;border-radius:50%;background:rgba(232,190,96,0.12);border:1px solid rgba(232,190,96,0.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⏱</div>
+          <div>
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Règle N°1 — Sans exception</div>
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--white);letter-spacing:-.5px;line-height:1.1">Attendre la <span style="color:var(--gold2);font-style:italic">clôture</span> de la bougie</div>
+          </div>
+        </div>
+
+        <!-- Explication principale -->
+        <p style="font-size:13px;color:var(--light);line-height:1.85;margin-bottom:20px">Une figure chartiste ne se confirme <strong style="color:var(--white)">qu'à la clôture de la bougie</strong> qui casse le niveau clé — la ligne de cou, le support ou la résistance. En cours de bougie, le prix peut franchir le niveau puis <strong style="color:var(--red)">revenir à l'intérieur</strong> de la figure. C'est ce qu'on appelle un <strong style="color:var(--red)">faux breakout</strong>. Entrer sur un simple contact, c'est prendre une position sans confirmation.</p>
+
+        <!-- Étapes protocole -->
+        <div style="font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px">Protocole d'entrée BBA</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(200,152,58,0.2);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">1</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">La figure est formée et le prix <strong style="color:var(--white)">approche la ligne de cou</strong>. Tu attends — tu ne touches rien.</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(200,152,58,0.2);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">2</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">Une bougie <strong style="color:var(--white)">franchit le niveau</strong>. Tu attends toujours — la bougie est encore ouverte.</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:rgba(90,170,106,0.06);border:1px solid var(--green-border);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(90,170,106,0.3);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">3</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">La bougie <strong style="color:var(--green)">clôture au-delà</strong> du niveau. La figure est confirmée. Tu entres à l'<strong style="color:var(--white)">ouverture de la bougie suivante</strong>.</div>
+          </div>
+        </div>
+
+        <!-- Grille interdit / correct -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+          <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:14px">
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--red);margin-bottom:8px">❌ À ne jamais faire</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--red)">·</span>Entrer en cours de bougie sur un simple contact</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--red)">·</span>Anticiper la cassure avant la clôture</li>
+            </ul>
+          </div>
+          <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:14px">
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--green);margin-bottom:8px">✓ La bonne méthode</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Figure complète et identifiée correctement</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Bougie clôturée au-delà de la ligne de cou</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Entrée à l'ouverture de la bougie suivante</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Note BBA -->
+        <div style="padding:12px 16px;background:rgba(232,190,96,0.06);border-left:3px solid var(--gold2);border-radius:0 var(--radius) var(--radius) 0;font-size:12px;color:var(--light);line-height:1.7">
+          💡 <strong style="color:var(--gold2)">Méthode BBA</strong> — La patience est une compétence de trading. Un signal raté vaut mieux qu'un faux signal. Si tu as manqué l'entrée parce que tu attendais la clôture, <strong style="color:var(--white)">c'est une bonne décision</strong>, pas une erreur.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB : CONTINUATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="tab-continuation" class="tab-panel">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div>
+        <div class="section-title">Figures de <em>Continuation</em></div>
+        <div class="section-desc">8 figures de pause dans la tendance — opportunités d'entrée dans la direction dominante</div>
+      </div>
+    </div>
+
+    <div class="figure-grid">
+
+      <!-- TRIANGLE ASCENDANT -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Continuation Haussière</div>
+          <div class="fig-name">Triangle <em>Ascendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Résistance horizontale y=65 (touche TOUS les hauts) -->
+              <line x1="75" y1="65" x2="305" y2="65" stroke="#5aaa6a" stroke-width="2"/>
+              <!-- Support ascendant — ligne passant par TOUS les creux -->
+              <!-- Creux alignés: 50,155 → 118,130 → 198,101 → 265,78 → 300,65 -->
+              <line x1="50" y1="155" x2="305" y2="64" stroke="#e8be60" stroke-width="2"/>
+              <!-- Prix redessiné: creux exactement sur la ligne de support -->
+              <path d="M50,155 L80,65 L118,130 L162,65 L198,101 L238,65 L265,78 L300,65" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure -->
+              <path d="M300,65 L340,35 L400,15" fill="none" stroke="#5aaa6a" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Labels -->
+              <text x="340" y="62" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace">Résistance plate</text>
+              <text x="40" y="175" fill="#e8be60" font-size="9" font-family="DM Mono,monospace">Support montant</text>
+              <text x="320" y="32" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace">CASSURE ↑</text>
+              <!-- Flèche -->
+              <path d="M305,60 L320,40 L328,47 M320,40 L314,50" fill="none" stroke="#5aaa6a" stroke-width="1.5"/>
+              <text x="150" y="20" fill="#888078" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">Compressions → tension → explosion</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Le prix forme des <strong style="color:var(--white)">creux de plus en plus hauts</strong> (support montant) mais bute toujours sur la <strong style="color:var(--white)">même résistance horizontale</strong>. Les acheteurs sont de plus en plus agressifs jusqu'à l'explosion.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Résistance <strong style="color:var(--white)">horizontale</strong> : les acheteurs testent le même niveau</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Support <strong style="color:var(--white)">ascendant</strong> : les creux montent progressivement</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Contraction du prix = accumulation de tension</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Cassure haussière</strong> dans 70-75% des cas</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure résistance</span>
+            <span class="trade-pill tp-sl">SL : sous dernier creux</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur triangle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRIANGLE DESCENDANT -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Continuation Baissière</div>
+          <div class="fig-name">Triangle <em>Descendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Support horizontal y=120 (touche TOUS les bas) -->
+              <line x1="75" y1="120" x2="305" y2="120" stroke="#c05050" stroke-width="2"/>
+              <!-- Résistance descendante — ligne passant par TOUS les sommets -->
+              <!-- Sommets alignés: 50,30 → 120,55 → 200,84 → 265,107 → 300,120 -->
+              <line x1="50" y1="30" x2="305" y2="121" stroke="#e8be60" stroke-width="2"/>
+              <!-- Prix redessiné: sommets exactement sur la ligne de résistance -->
+              <path d="M50,30 L80,120 L120,55 L162,120 L200,84 L238,120 L265,107 L300,120" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure baissière -->
+              <path d="M300,120 L340,145 L400,165" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Labels -->
+              <text x="340" y="118" fill="#c05050" font-size="9" font-family="DM Mono,monospace">Support plat</text>
+              <text x="40" y="28" fill="#e8be60" font-size="9" font-family="DM Mono,monospace">Résistance descendante</text>
+              <text x="315" y="155" fill="#c05050" font-size="9" font-family="DM Mono,monospace">CASSURE ↓</text>
+              <path d="M305,125 L322,148 L314,145 M322,148 L318,138" fill="none" stroke="#c05050" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <p class="fig-desc">Miroir du triangle ascendant. Le prix forme des <strong style="color:var(--white)">sommets de plus en plus bas</strong> mais revient toujours au <strong style="color:var(--white)">même support horizontal</strong>. Les vendeurs sont de plus en plus agressifs.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span>Support <strong style="color:var(--white)">horizontal</strong> : les vendeurs testent le même niveau</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Résistance <strong style="color:var(--white)">descendante</strong> : les sommets baissent</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Compression = accumulation de pression vendeuse</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Cassure baissière</strong> dans 70-75% des cas</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : cassure support</span>
+            <span class="trade-pill tp-sl">SL : au-dessus dernier sommet</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur triangle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRIANGLE SYMÉTRIQUE -->
+      <div class="fig-card neutral">
+        <div class="fig-header">
+          <div class="fig-type cont">Continuation — Direction selon tendance</div>
+          <div class="fig-name">Triangle <em>Symétrique</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Résistance descendante -->
+              <line x1="60" y1="40" x2="300" y2="88" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Support ascendant -->
+              <line x1="60" y1="140" x2="300" y2="88" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Prix -->
+              <path d="M40,50 L60,40 L100,130 L150,58 L200,110 L240,75 L270,102 L300,88" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- LDC haussière = dernier HAUT (x=240, y=75) — si tendance haussière avant -->
+              <line x1="60" y1="75" x2="310" y2="75" stroke="#5aaa6a" stroke-width="1.8" stroke-dasharray="7,4" opacity="0.9"/>
+              <circle cx="240" cy="75" r="3.5" fill="#5aaa6a"/>
+              <text x="312" y="78" fill="#5aaa6a" font-size="7" font-family="DM Mono,monospace">LDC ↑</text>
+              <!-- LDC baissière = dernier BAS (x=270, y=102) — si tendance baissière avant -->
+              <line x1="60" y1="102" x2="310" y2="102" stroke="#c05050" stroke-width="1.8" stroke-dasharray="7,4" opacity="0.9"/>
+              <circle cx="270" cy="102" r="3.5" fill="#c05050"/>
+              <text x="312" y="105" fill="#c05050" font-size="7" font-family="DM Mono,monospace">LDC ↓</text>
+              <!-- Double flèche cassure depuis la ligne de cou -->
+              <path d="M305,83 L360,50 L400,30" fill="none" stroke="#5aaa6a" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6,3"/>
+              <path d="M305,93 L360,130 L400,155" fill="none" stroke="#c05050" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6,3"/>
+              <!-- Labels -->
+              <text x="363" y="38" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace">ENTRÉE ↑</text>
+              <text x="363" y="163" fill="#c05050" font-size="9" font-family="DM Mono,monospace">ENTRÉE ↓</text>
+              <text x="155" y="175" fill="#e8be60" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Attendre clôture de bougie au-delà de la LDC — dans le sens de la tendance</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Deux lignes convergentes <strong style="color:var(--white)">symétriques</strong> — ni horizontale, ni ascendante/descendante. Le marché hésite. La figure est <strong style="color:var(--gold2)">neutre</strong> : la cassure suit généralement la tendance en cours avant la figure.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot gold"></div><span>Sommets décroissants ET creux croissants simultanément</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Point de convergence = <strong style="color:var(--white)">apex</strong> — la cassure survient avant l'apex</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Tendance haussière avant → <strong style="color:var(--green)">cassure haussière probable</strong></span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Tendance baissière avant → <strong style="color:var(--red)">cassure baissière probable</strong></span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Entrée : clôture au-delà de la ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : intérieur du triangle</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur du triangle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BISEAU ASCENDANT -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Attention — Signal Baissier</div>
+          <div class="fig-name">Biseau <em>Ascendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Résistance montante (connecte les hauts: 60,130 → 145,105 → 225,85 → 300,65) -->
+              <line x1="60" y1="130" x2="300" y2="65" stroke="#c05050" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Support montant (connecte les bas: 40,165 → 100,155 → 185,130 → 260,110) -->
+              <line x1="40" y1="165" x2="300" y2="108" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Prix -->
+              <path d="M40,165 L60,130 L100,155 L145,105 L185,130 L225,85 L260,110 L300,65" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure baissière -->
+              <path d="M300,65 L330,100 L380,140 L410,165" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- LIGNE DE COU = horizontale sur le dernier BAS (x=260, y=110) -->
+              <line x1="40" y1="110" x2="380" y2="110" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <circle cx="260" cy="110" r="3.5" fill="#e8be60"/>
+              <rect x="330" y="101" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="366" y="110" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Labels -->
+              <text x="305" y="53" fill="#c05050" font-size="8" font-family="DM Mono,monospace">Résistance montante</text>
+              <text x="330" y="92" fill="#c05050" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↓</text>
+              <text x="50" y="175" fill="#888078" font-size="8" font-family="DM Mono,monospace">Hausse artificielle — faiblesse cachée</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Trompeur pour les débutants : le prix monte mais les <strong style="color:var(--white)">deux lignes convergent vers le haut</strong>. Cette hausse est de plus en plus faible — les acheteurs manquent de souffle. Résultat : cassure baissière.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span>Les deux lignes (<strong style="color:var(--white)">résistance ET support</strong>) montent en même temps</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Elles <strong style="color:var(--white)">convergent</strong> — le canal se rétrécit en montant</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Les hausses sont de moins en moins convaincantes</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Cassure baissière</strong> dans 80% des cas malgré l'apparence haussière</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : au-dessus résistance</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur du biseau</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BISEAU DESCENDANT -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Signal Haussier</div>
+          <div class="fig-name">Biseau <em>Descendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Résistance descendante (large à gauche, se resserre à droite) -->
+              <!-- Passe par les hauts: 30,20 → 110,42 → 200,60 → 280,75 -->
+              <line x1="30" y1="20" x2="295" y2="78" stroke="#5aaa6a" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Support descendant (commence bien en-dessous = large, remonte vers résistance) -->
+              <!-- Passe par les bas: 30,60 → 100,78 → 185,90 → 280,100 -->
+              <line x1="30" y1="60" x2="295" y2="102" stroke="#e8be60" stroke-width="1.5" stroke-dasharray="5,3"/>
+              <!-- Prix redessiné pour toucher les deux lignes aux bons endroits -->
+              <path d="M30,20 L60,60 L100,42 L145,78 L190,58 L230,90 L265,73 L295,102" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure haussière -->
+              <path d="M300,112 L330,75 L370,40 L410,15" fill="none" stroke="#5aaa6a" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- LIGNE DE COU = horizontale sur le dernier HAUT (x=265, y=73) -->
+              <line x1="30" y1="73" x2="380" y2="73" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <circle cx="265" cy="73" r="3.5" fill="#e8be60"/>
+              <rect x="330" y="64" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="366" y="73" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Labels -->
+              <text x="305" y="112" fill="#e8be60" font-size="8" font-family="DM Mono,monospace">Support descendant</text>
+              <text x="320" y="58" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↑</text>
+              <text x="50" y="175" fill="#888078" font-size="8" font-family="DM Mono,monospace">Baisse artificielle — les vendeurs s'épuisent</text>
+            </svg>
+          </div>
+          <p class="fig-desc">L'inverse du biseau ascendant. Le prix descend mais les deux lignes convergent vers le bas — les baisses sont de moins en moins fortes. Les vendeurs s'épuisent. Cassure haussière surprise.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Les deux lignes (<strong style="color:var(--white)">résistance ET support</strong>) descendent</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Elles convergent — les baisses perdent de l'élan</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Souvent accompagné d'un <strong style="color:var(--white)">volume décroissant</strong></span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Cassure haussière</strong> dans 80% des cas malgré l'apparence baissière</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : sous support</span>
+            <span class="trade-pill tp-tp">Objectif : hauteur du biseau</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRAPEAU HAUSSIER -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Continuation Haussière — Canal Descendant</div>
+          <div class="fig-name">Drapeau <em>Descendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="greenFlagFade" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#5aaa6a" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#5aaa6a" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+
+              <!-- MÂT — impulsion haussière forte -->
+              <path d="M25,168 L108,38" fill="none" stroke="#5aaa6a" stroke-width="3.5" stroke-linecap="round"/>
+              <text x="55" y="132" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace" transform="rotate(-55,55,132)" font-weight="bold">MÂT</text>
+              <text x="20" y="172" fill="#888078" font-size="7.5" font-family="DM Mono,monospace">Forte impulsion</text>
+
+              <!-- CANAL DESCENDANT du drapeau -->
+              <!-- Résistance descendante : 108,38 → 160,46 → 215,55 → 243,62 -->
+              <line x1="108" y1="38" x2="245" y2="63" stroke="#c05050" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.7"/>
+              <!-- Support descendant : 135,65 → 190,72 → 243,80 -->
+              <line x1="108" y1="65" x2="245" y2="80" stroke="#c05050" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.7"/>
+              <!-- Zone drapeau colorée -->
+              <path d="M108,38 L135,65 L160,46 L190,72 L215,55 L243,80 L243,63 L215,55 L190,52 L160,46 L135,38 Z" fill="rgba(192,80,80,0.06)"/>
+
+              <!-- Prix dans le canal -->
+              <path d="M108,38 L135,65 L160,46 L190,72 L215,55 L243,80" fill="none" stroke="#ccc5b5" stroke-width="1.8" stroke-linejoin="round"/>
+
+              <!-- Points hauts et bas du canal -->
+              <circle cx="108" cy="38" r="3" fill="#5aaa6a"/>
+              <circle cx="160" cy="46" r="3" fill="#c05050" opacity="0.7"/>
+              <circle cx="215" cy="55" r="3.5" fill="#e8be60"/>
+              <circle cx="135" cy="65" r="3" fill="#c05050" opacity="0.5"/>
+              <circle cx="190" cy="72" r="3" fill="#c05050" opacity="0.5"/>
+              <circle cx="243" cy="80" r="3" fill="#c05050" opacity="0.5"/>
+
+              <!-- LIGNE DE COU = horizontale sur le dernier HAUT (x=215, y=55) -->
+              <line x1="108" y1="55" x2="340" y2="55" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <rect x="290" y="46" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="326" y="55" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+
+              <!-- Cassure au-dessus LDC + reprise haussière -->
+              <path d="M243,55 L270,35 L315,15 L380,2" fill="none" stroke="#5aaa6a" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+              <!-- Remplissage vert -->
+              <path d="M243,55 L270,35 L315,15 L380,2 L380,55 L243,55 Z" fill="url(#greenFlagFade)"/>
+              <!-- Flèche entrée -->
+              <path d="M246,50 L258,30 L266,37 M258,30 L251,40" fill="none" stroke="#5aaa6a" stroke-width="1.5"/>
+              <text x="270" y="28" fill="#5aaa6a" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↑</text>
+
+              <!-- Annotation canal -->
+              <text x="175" y="100" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Canal descendant = simple pause</text>
+              <text x="175" y="112" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Volume ↓ pendant la consolidation</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une <strong style="color:var(--white)">forte impulsion haussière</strong> (le "mât"), le prix consolide dans un petit canal légèrement baissier (le "drapeau"). C'est une simple pause — le prix reprend ensuite sa hausse avec force.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--white)">Mât</strong> : impulsion forte et rapide vers le haut</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span><strong style="color:var(--white)">Drapeau</strong> : canal légèrement baissier pendant 5-15 bougies</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Volume diminue pendant le drapeau = bonne consolidation</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Signal</strong> : cassure au-dessus du haut du canal</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : bas du drapeau</span>
+            <span class="trade-pill tp-tp">Objectif : longueur du mât</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRAPEAU BAISSIER -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Continuation Baissière — Canal Ascendant</div>
+          <div class="fig-name">Drapeau <em>Ascendant</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="redFlagFade" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c05050" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#c05050" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+
+              <!-- MÂT — impulsion baissière forte -->
+              <path d="M25,12 L108,140" fill="none" stroke="#c05050" stroke-width="3.5" stroke-linecap="round"/>
+              <text x="55" y="45" fill="#c05050" font-size="8" font-family="DM Mono,monospace" transform="rotate(55,55,45)" font-weight="bold">MÂT</text>
+              <text x="20" y="8" fill="#888078" font-size="7.5" font-family="DM Mono,monospace">Forte impulsion</text>
+
+              <!-- CANAL ASCENDANT du drapeau (rebond temporaire) -->
+              <!-- Résistance ascendante : 108,120 → 160,112 → 215,102 → 243,95 -->
+              <line x1="108" y1="120" x2="245" y2="93" stroke="#5aaa6a" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.7"/>
+              <!-- Support ascendant : 108,140 → 160,132 → 215,125 → 243,118 -->
+              <line x1="108" y1="140" x2="245" y2="116" stroke="#5aaa6a" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.7"/>
+              <!-- Zone drapeau colorée -->
+              <path d="M108,120 L108,140 L160,132 L190,118 L215,128 L243,118 L243,93 L215,102 L190,110 L160,112 Z" fill="rgba(90,170,106,0.06)"/>
+
+              <!-- Prix dans le canal -->
+              <path d="M108,140 L135,118 L160,132 L190,110 L215,128 L243,105" fill="none" stroke="#ccc5b5" stroke-width="1.8" stroke-linejoin="round"/>
+
+              <!-- Points hauts et bas du canal -->
+              <circle cx="108" cy="140" r="3" fill="#c05050"/>
+              <circle cx="160" cy="112" r="3" fill="#5aaa6a" opacity="0.7"/>
+              <circle cx="215" cy="102" r="3" fill="#5aaa6a" opacity="0.7"/>
+              <circle cx="135" cy="118" r="3" fill="#5aaa6a" opacity="0.5"/>
+              <circle cx="190" cy="110" r="3" fill="#5aaa6a" opacity="0.5"/>
+              <circle cx="215" cy="128" r="3.5" fill="#e8be60"/>
+              <circle cx="243" cy="118" r="3" fill="#5aaa6a" opacity="0.5"/>
+
+              <!-- LIGNE DE COU = horizontale sur le dernier BAS (x=215, y=128) -->
+              <line x1="108" y1="128" x2="340" y2="128" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <rect x="290" y="119" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="326" y="128" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+
+              <!-- Cassure sous LDC + reprise baissière -->
+              <path d="M243,128 L268,152 L310,168 L380,178" fill="none" stroke="#c05050" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+              <!-- Remplissage rouge -->
+              <path d="M243,128 L268,152 L310,168 L380,178 L380,128 L243,128 Z" fill="url(#redFlagFade)"/>
+              <!-- Flèche entrée -->
+              <path d="M246,133 L258,152 L250,150 M258,152 L266,143" fill="none" stroke="#c05050" stroke-width="1.5"/>
+              <text x="270" y="165" fill="#c05050" font-size="9" font-family="DM Mono,monospace" font-weight="bold">ENTRÉE ↓</text>
+
+              <!-- Annotation canal -->
+              <text x="175" y="68" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Canal ascendant = simple rebond</text>
+              <text x="175" y="80" fill="#888078" font-size="7.5" font-family="DM Mono,monospace" text-anchor="middle">Volume ↓ pendant la consolidation</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une <strong style="color:var(--white)">forte impulsion baissière</strong>, le prix consolide dans un petit canal légèrement haussier. Ce rebond est temporaire — les vendeurs reprennent le contrôle et la baisse continue.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--white)">Mât</strong> : chute forte et rapide</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span><strong style="color:var(--white)">Drapeau</strong> : canal légèrement haussier — simple correction</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Ne pas se laisser tromper par le rebond apparent</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Signal</strong> : cassure sous le bas du canal</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : haut du drapeau</span>
+            <span class="trade-pill tp-tp">Objectif : longueur du mât</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RANGE CONTINUATION HAUSSIÈRE -->
+      <div class="fig-card bullish">
+        <div class="fig-header">
+          <div class="fig-type bull">Continuation Haussière</div>
+          <div class="fig-name">Range <em>Haussier</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Tendance haussière initiale -->
+              <path d="M20,160 L100,80" fill="none" stroke="#5aaa6a" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Zone de range étendue jusqu'à la cassure -->
+              <rect x="100" y="65" width="165" height="45" fill="rgba(90,170,106,0.05)" stroke="#5aaa6a" stroke-width="1" stroke-dasharray="4,3"/>
+              <!-- LIGNE DE COU = horizontale sur le dernier HAUT du range (x=265, y=67) -->
+              <line x1="100" y1="67" x2="370" y2="67" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <circle cx="265" cy="67" r="3.5" fill="#e8be60"/>
+              <rect x="318" y="58" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="354" y="67" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Support bas du range -->
+              <line x1="100" y1="110" x2="265" y2="110" stroke="#888078" stroke-width="1.2" stroke-dasharray="4,3"/>
+              <!-- Oscillation jusqu'au point de cassure -->
+              <path d="M100,80 L130,65 L155,108 L180,68 L205,105 L230,70 L250,100 L265,67" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure depuis la résistance -->
+              <path d="M265,65 L295,42 L330,25 L390,8" fill="none" stroke="#5aaa6a" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Labels -->
+              <text x="175" y="57" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">RÉSISTANCE</text>
+              <text x="175" y="125" fill="#e8be60" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">SUPPORT</text>
+              <text x="20" y="175" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace">Hausse initiale</text>
+              <text x="300" y="35" fill="#5aaa6a" font-size="8" font-family="DM Mono,monospace">Reprise</text>
+              <path d="M268,60 L285,40 L292,47 M285,40 L278,50" fill="none" stroke="#5aaa6a" stroke-width="1.5"/>
+              <text x="175" y="155" fill="#888078" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">Accumulation avant la prochaine vague</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une hausse, le prix consolide dans un <strong style="color:var(--white)">range horizontal strict</strong>. C'est une phase d'accumulation classique : les "forts" achètent à prix fixe avant la prochaine vague haussière.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot g"></div><span>Tendance haussière → entrée dans le range</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Prix rebondit entre <strong style="color:var(--white)">résistance et support horizontaux</strong></span></div>
+            <div class="rule"><div class="rule-dot g"></div><span>Plus le range dure longtemps, plus la cassure sera violente</span></div>
+            <div class="rule"><div class="rule-dot g"></div><span><strong style="color:var(--green)">Signal</strong> : cassure au-dessus résistance = continuation</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture au-dessus ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : sous support du range</span>
+            <span class="trade-pill tp-tp">Objectif : largeur × 1.5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RANGE CONTINUATION BAISSIÈRE -->
+      <div class="fig-card bearish">
+        <div class="fig-header">
+          <div class="fig-type bear">Continuation Baissière</div>
+          <div class="fig-name">Range <em>Baissier</em></div>
+        </div>
+        <div class="fig-body">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="40" x2="420" y2="40" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="90" x2="420" y2="90" stroke="#252530" stroke-width="1"/>
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#252530" stroke-width="1"/>
+              <!-- Tendance baissière initiale -->
+              <path d="M20,20 L100,100" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Zone de range étendue jusqu'à la cassure -->
+              <rect x="100" y="75" width="165" height="45" fill="rgba(192,80,80,0.05)" stroke="#c05050" stroke-width="1" stroke-dasharray="4,3"/>
+              <!-- Résistance haute du range -->
+              <line x1="100" y1="75" x2="265" y2="75" stroke="#888078" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>
+              <!-- BAS du range (support) : x=130,y=120 / x=180,y=118 / x=230,y=115 / x=265,y=118 -->
+              <circle cx="130" cy="120" r="3" fill="#e8be60" opacity="0.7"/>
+              <circle cx="180" cy="118" r="3" fill="#e8be60" opacity="0.7"/>
+              <circle cx="230" cy="115" r="3" fill="#e8be60" opacity="0.7"/>
+              <circle cx="265" cy="118" r="3.5" fill="#e8be60"/>
+              <!-- LIGNE DE COU = horizontale sur les BAS du range (support) -->
+              <line x1="100" y1="118" x2="370" y2="118" stroke="#e8be60" stroke-width="2" stroke-dasharray="7,4"/>
+              <rect x="318" y="109" width="72" height="13" rx="1" fill="rgba(232,190,96,0.15)" stroke="rgba(232,190,96,0.4)" stroke-width="1"/>
+              <text x="354" y="118" fill="#e8be60" font-size="7" font-family="DM Mono,monospace" text-anchor="middle">LIGNE DE COU</text>
+              <!-- Oscillation jusqu'au point de cassure -->
+              <path d="M100,100 L130,120 L155,78 L180,118 L205,80 L230,115 L252,82 L265,118" fill="none" stroke="#888078" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Cassure depuis le support -->
+              <path d="M265,120 L290,142 L325,160 L385,172" fill="none" stroke="#c05050" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- Labels -->
+              <text x="175" y="68" fill="#e8be60" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">RÉSISTANCE</text>
+              <text x="175" y="135" fill="#c05050" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">SUPPORT</text>
+              <text x="20" y="15" fill="#c05050" font-size="8" font-family="DM Mono,monospace">Baisse initiale</text>
+              <path d="M268,125 L285,148 L277,145 M285,148 L280,138" fill="none" stroke="#c05050" stroke-width="1.5"/>
+              <text x="290" y="148" fill="#c05050" font-size="9" font-family="DM Mono,monospace">Reprise ↓</text>
+              <text x="175" y="155" fill="#888078" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">Distribution avant la prochaine vague</text>
+            </svg>
+          </div>
+          <p class="fig-desc">Après une baisse, le prix consolide en range. Les vendeurs <strong style="color:var(--white)">distribuent</strong> et se repositionnent à meilleur prix. Cassure du support = reprise de la baisse.</p>
+          <div class="fig-rules">
+            <div class="rule"><div class="rule-dot r"></div><span>Tendance baissière → entrée dans le range</span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>Prix oscille entre deux niveaux horizontaux</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span>Le range sous une résistance importante = signal fort</span></div>
+            <div class="rule"><div class="rule-dot r"></div><span><strong style="color:var(--red)">Signal</strong> : cassure sous support = continuation baissière</span></div>
+          </div>
+          <div class="trade-row">
+            <span class="trade-pill tp-entry">Clôture sous ligne de cou</span>
+            <span class="trade-pill tp-sl">SL : au-dessus résistance</span>
+            <span class="trade-pill tp-tp">Objectif : largeur × 1.5</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end figure-grid -->
+
+    <!-- ══ ENCADRÉ RÈGLE CLÔTURE ══ -->
+    <div style="margin-top:48px;position:relative;background:var(--surface);border:1px solid rgba(232,190,96,0.4);border-radius:var(--radius);overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold2),var(--gold3),transparent)"></div>
+      <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold2),transparent)"></div>
+      <div style="padding:28px 32px">
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+          <div style="width:42px;height:42px;min-width:42px;border-radius:50%;background:rgba(232,190,96,0.12);border:1px solid rgba(232,190,96,0.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⏱</div>
+          <div>
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Règle N°1 — Sans exception</div>
+            <div style="font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--white);letter-spacing:-.5px;line-height:1.1">Attendre la <span style="color:var(--gold2);font-style:italic">clôture</span> de la bougie</div>
+          </div>
+        </div>
+
+        <!-- Explication principale -->
+        <p style="font-size:13px;color:var(--light);line-height:1.85;margin-bottom:20px">Une figure chartiste ne se confirme <strong style="color:var(--white)">qu'à la clôture de la bougie</strong> qui casse le niveau clé — la ligne de cou, le support ou la résistance. En cours de bougie, le prix peut franchir le niveau puis <strong style="color:var(--red)">revenir à l'intérieur</strong> de la figure. C'est ce qu'on appelle un <strong style="color:var(--red)">faux breakout</strong>. Entrer sur un simple contact, c'est prendre une position sans confirmation.</p>
+
+        <!-- Étapes protocole -->
+        <div style="font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px">Protocole d'entrée BBA</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(200,152,58,0.2);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">1</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">La figure est formée et le prix <strong style="color:var(--white)">approche la ligne de cou</strong>. Tu attends — tu ne touches rien.</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(200,152,58,0.2);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">2</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">Une bougie <strong style="color:var(--white)">franchit le niveau</strong>. Tu attends toujours — la bougie est encore ouverte.</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:rgba(90,170,106,0.06);border:1px solid var(--green-border);border-radius:var(--radius)">
+            <div style="font-family:var(--font-d);font-size:22px;color:rgba(90,170,106,0.3);font-weight:900;line-height:1;flex-shrink:0;min-width:24px">3</div>
+            <div style="font-size:12px;color:var(--light);line-height:1.65">La bougie <strong style="color:var(--green)">clôture au-delà</strong> du niveau. La figure est confirmée. Tu entres à l'<strong style="color:var(--white)">ouverture de la bougie suivante</strong>.</div>
+          </div>
+        </div>
+
+        <!-- Grille interdit / correct -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+          <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:14px">
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--red);margin-bottom:8px">❌ À ne jamais faire</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--red)">·</span>Entrer en cours de bougie sur un simple contact</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--red)">·</span>Anticiper la cassure avant la clôture</li>
+            </ul>
+          </div>
+          <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:14px">
+            <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--green);margin-bottom:8px">✓ La bonne méthode</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Figure complète et identifiée correctement</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Bougie clôturée au-delà de la ligne de cou</li>
+              <li style="font-size:11.5px;color:var(--light);line-height:1.5;padding-left:12px;position:relative"><span style="position:absolute;left:0;color:var(--green)">·</span>Entrée à l'ouverture de la bougie suivante</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Note BBA -->
+        <div style="padding:12px 16px;background:rgba(232,190,96,0.06);border-left:3px solid var(--gold2);border-radius:0 var(--radius) var(--radius) 0;font-size:12px;color:var(--light);line-height:1.7">
+          💡 <strong style="color:var(--gold2)">Méthode BBA</strong> — La patience est une compétence de trading. Un signal raté vaut mieux qu'un faux signal. Si tu as manqué l'entrée parce que tu attendais la clôture, <strong style="color:var(--white)">c'est une bonne décision</strong>, pas une erreur.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB : GUIDE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="tab-guide" class="tab-panel">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <div class="section-title">Comment <em>trader</em> ces figures</div>
+        <div class="section-desc">Méthode BBA — 5 règles non négociables pour le débutant</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:16px">
+
+      <div style="position:relative;background:var(--surface);border:1px solid rgba(232,190,96,0.4);border-radius:var(--radius);overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold2),var(--gold3),transparent)"></div>
+        <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold2),transparent)"></div>
+        <div style="padding:24px 28px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="width:40px;height:40px;min-width:40px;border-radius:50%;background:rgba(232,190,96,0.12);border:1px solid rgba(232,190,96,0.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⏱</div>
+            <div>
+              <div style="font-family:var(--font-m);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:3px">Règle N°1 — Non négociable</div>
+              <div style="font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--white);letter-spacing:-.5px">Attendre la <em style="color:var(--gold2)">clôture de la bougie</em></div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--light);line-height:1.85;margin-bottom:20px">La règle la plus importante — et la plus violée. Tu ne prends <strong style="color:var(--white)">jamais position</strong> parce que le cours a touché la ligne de cou. Tu attends que la bougie <strong style="color:var(--gold2)">clôture intégralement au-delà</strong> du niveau. En cours de formation, une bougie peut franchir n'importe quel niveau puis revenir — c'est un <strong style="color:var(--red)">faux breakout</strong>. Seule la clôture est une preuve.</p>
+
+          <!-- Séquence protocole -->
+          <div style="font-family:var(--font-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:10px">Les 3 étapes de validation</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:20px">
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+              <div style="font-family:var(--font-d);font-size:24px;color:rgba(200,152,58,0.18);font-weight:900;line-height:1;flex-shrink:0;min-width:26px">1</div>
+              <div>
+                <div style="font-size:12.5px;color:var(--white);font-weight:600;margin-bottom:2px">La figure est entièrement formée</div>
+                <div style="font-size:11.5px;color:var(--mid);line-height:1.55">Tous les éléments sont en place : les sommets/creux respectent la structure, la ligne de cou est clairement identifiable.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius)">
+              <div style="font-family:var(--font-d);font-size:24px;color:rgba(200,152,58,0.18);font-weight:900;line-height:1;flex-shrink:0;min-width:26px">2</div>
+              <div>
+                <div style="font-size:12.5px;color:var(--white);font-weight:600;margin-bottom:2px">Une bougie clôture au-delà de la ligne de cou</div>
+                <div style="font-size:11.5px;color:var(--mid);line-height:1.55">La bougie se ferme complètement — pas un simple contact, pas une mèche. Le corps de la bougie est de l'autre côté.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:rgba(90,170,106,0.07);border:1px solid var(--green-border);border-radius:var(--radius)">
+              <div style="font-family:var(--font-d);font-size:24px;color:rgba(90,170,106,0.25);font-weight:900;line-height:1;flex-shrink:0;min-width:26px">3</div>
+              <div>
+                <div style="font-size:12.5px;color:var(--green);font-weight:600;margin-bottom:2px">Entrée à l'ouverture de la bougie suivante</div>
+                <div style="font-size:11.5px;color:var(--mid);line-height:1.55">La bougie de cassure est clôturée. La suivante s'ouvre. <strong style="color:var(--white)">C'est à ce moment précis que tu entres.</strong> Pas avant.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interdit / correct -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:14px">
+              <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--red);margin-bottom:8px">❌ Erreurs fréquentes</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:5px">
+                <li style="font-size:11.5px;color:var(--light);padding-left:12px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--red)">·</span>Entrer sur contact de la LDC (bougie encore ouverte)</li>
+                <li style="font-size:11.5px;color:var(--light);padding-left:12px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--red)">·</span>Suivre l'émotion du moment plutôt que la règle</li>
+              </ul>
+            </div>
+            <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:14px">
+              <div style="font-family:var(--font-m);font-size:8px;letter-spacing:1.5px;color:var(--green);margin-bottom:8px">✓ Protocole BBA</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:5px">
+                <li style="font-size:11.5px;color:var(--light);padding-left:12px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--green)">·</span>Figure terminée et validée visuellement</li>
+                <li style="font-size:11.5px;color:var(--light);padding-left:12px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--green)">·</span>Bougie clôturée au-delà de la LDC</li>
+                <li style="font-size:11.5px;color:var(--light);padding-left:12px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:var(--green)">·</span>Entrée à l'ouverture de la bougie suivante</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Note patience -->
+          <div style="padding:12px 16px;background:rgba(232,190,96,0.06);border-left:3px solid var(--gold2);border-radius:0 var(--radius) var(--radius) 0;font-size:12px;color:var(--light);line-height:1.7">
+            💡 <strong style="color:var(--gold2)">À retenir</strong> — Un signal manqué parce que tu attendais la clôture <strong style="color:var(--white)">est une bonne décision</strong>. Un faux signal entré trop tôt est une perte sèche. La patience se construit, l'impatience se paye.
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-card neutral" style="padding:0">
+        <div style="padding:20px 24px">
+          <div class="fig-type cont">Règle 2</div>
+          <div class="fig-name" style="font-size:18px;margin-bottom:12px">Toujours placer un Stop Loss</div>
+          <p class="fig-desc">Chaque figure a un emplacement logique pour le SL. Le SL protège ton capital si la figure échoue — et même les meilleures figures échouent parfois.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px">
+            <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:10px">
+              <div style="font-family:var(--font-m);font-size:8px;color:var(--red);margin-bottom:4px">ÉTÉ / Double Top</div>
+              <div style="font-size:11px;color:var(--mid)">SL au-dessus de l'épaule droite ou du 2ème top</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:10px">
+              <div style="font-family:var(--font-m);font-size:8px;color:var(--green);margin-bottom:4px">Triangles / Biseaux</div>
+              <div style="font-size:11px;color:var(--mid)">SL de l'autre côté de la figure (intérieur)</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:2px;padding:10px">
+              <div style="font-family:var(--font-m);font-size:8px;color:var(--gold2);margin-bottom:4px">Drapeaux / Ranges</div>
+              <div style="font-size:11px;color:var(--mid)">SL sous le bas du drapeau ou du range</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-card neutral" style="padding:0">
+        <div style="padding:20px 24px">
+          <div class="fig-type cont">Règle 3</div>
+          <div class="fig-name" style="font-size:18px;margin-bottom:12px">Mesurer l'objectif de cours</div>
+          <p class="fig-desc">Chaque figure donne un <strong style="color:var(--white)">objectif de prix théorique</strong> basé sur la hauteur de la figure. Ce n'est pas une garantie mais un guide.</p>
+          <div style="background:var(--surface2);border:1px solid var(--gold-border);border-radius:2px;padding:16px;margin-top:12px">
+            <div style="font-family:var(--font-m);font-size:8px;color:var(--gold2);margin-bottom:8px;letter-spacing:2px">MÉTHODE UNIVERSELLE</div>
+            <div style="font-size:12.5px;color:var(--white)">Objectif théorique = Point de cassure ± <strong style="color:var(--gold2)">hauteur de la figure</strong></div>
+            <div style="font-size:11.5px;color:var(--mid);margin-top:6px">Mesure la hauteur maximale de la figure, applique cette distance à partir du point de cassure. C'est l'objectif minimum.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-card neutral" style="padding:0">
+        <div style="padding:20px 24px">
+          <div class="fig-type cont">Règle 4</div>
+          <div class="fig-name" style="font-size:18px;margin-bottom:12px">Lire le contexte — tendance et unité de temps</div>
+          <p class="fig-desc">Une figure n'existe pas dans le vide. Une ÉTÉ sur un graphique horaire dans une tendance haussière mensuelle est bien moins fiable qu'une ÉTÉ sur le journalier.</p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+            <div class="rule"><div class="rule-dot gold"></div><span>La figure doit aller dans le <strong style="color:var(--white)">sens de la tendance supérieure</strong></span></div>
+            <div class="rule"><div class="rule-dot gold"></div><span>La figure doit avoir une <strong style="color:var(--white)">structure développée</strong> — suffisamment de points de contact, de durée et d'amplitude pour être valide</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-card neutral" style="padding:0">
+        <div style="padding:20px 24px">
+          <div class="fig-type cont">Règle 5</div>
+          <div class="fig-name" style="font-size:18px;margin-bottom:12px">Le volume confirme — toujours</div>
+          <p class="fig-desc">Le volume est le détecteur de mensonge du marché. Une cassure sans volume est suspecte et peut être un <strong style="color:var(--red)">faux breakout</strong>.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+            <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:2px;padding:12px">
+              <div style="font-family:var(--font-m);font-size:8px;color:var(--green);margin-bottom:6px">✓ CASSURE VALIDE</div>
+              <div style="font-size:11.5px;color:var(--light)">Volume fort sur la bougie de cassure → mouvement authentique</div>
+            </div>
+            <div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:2px;padding:12px">
+              <div style="font-family:var(--font-m);font-size:8px;color:var(--red);margin-bottom:6px">⚠ CASSURE SUSPECTE</div>
+              <div style="font-size:11.5px;color:var(--light)">Volume faible → possible faux breakout, attendre confirmation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end page -->
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.mtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

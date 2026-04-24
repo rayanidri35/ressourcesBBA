@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processus Post-Entrée en Position — BBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Lato:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   BBA DARK DESIGN SYSTEM
+   ============================================ */
+:root{
+  --bg:#080810;
+  --surface:#0f0f18;
+  --surf2:#14141f;
+  --surf3:#1a1a28;
+
+  --ink:#eceae4;
+  --ink2:#c8c4bc;
+  --mid:#6a6870;
+  --muted:#3e3c48;
+
+  --border:rgba(255,255,255,.07);
+  --borderL:rgba(255,255,255,.04);
+
+  --accent:#4058ee;
+  --green:#22c55e;
+  --greenD:#16a34a;
+  --gold:#f0b429;
+  --blue:#60a5fa;
+  --red:#f87171;
+
+  --sh-sm:0 2px 12px rgba(0,0,0,.55);
+  --sh-md:0 4px 32px rgba(0,0,0,.65), 0 1px 4px rgba(0,0,0,.4);
+  --sh-lg:0 8px 56px rgba(0,0,0,.75), 0 2px 8px rgba(0,0,0,.5);
+
+  --glow-green:0 0 32px rgba(34,197,94,.13), 0 0 90px rgba(34,197,94,.05);
+  --glow-accent:0 0 32px rgba(64,88,238,.14), 0 0 90px rgba(64,88,238,.05);
+  --glow-gold:0 0 32px rgba(240,180,41,.11), 0 0 90px rgba(240,180,41,.04);
+  --glow-red:0 0 32px rgba(248,113,113,.11);
+  --glow-blue:0 0 32px rgba(96,165,250,.11);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink2);
+  font-family:'Lato',sans-serif;
+  font-weight:400;
+  font-size:14.5px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+main,nav,footer,header{position:relative;z-index:1}
+
+/* ============================================
+   NAV
+   ============================================ */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(8,8,16,.94);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 4px 32px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.04);
+}
+.nav-inner{
+  max-width:1120px;margin:0 auto;
+  padding:18px 52px;
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);
+}
+.logo em{color:var(--accent);font-style:italic;font-weight:400}
+.nav-tabs{display:flex;gap:24px;list-style:none}
+.nav-tabs a{
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);
+  text-decoration:none;
+  padding:6px 0;border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.nav-tabs a:hover{color:var(--accent)}
+.nav-tabs a.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-badge{
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;background:var(--accent);
+  padding:5px 11px;border-radius:2px;
+  box-shadow:0 0 16px rgba(64,88,238,.45);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero{
+  max-width:1120px;margin:0 auto;
+  padding:96px 52px 76px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);
+  border:1px solid rgba(64,88,238,.28);
+  background:rgba(64,88,238,.07);
+  padding:7px 14px;border-radius:2px;
+  box-shadow:0 0 24px rgba(64,88,238,.09);
+  margin-bottom:32px;
+}
+.hero-eyebrow::before{
+  content:'';width:6px;height:6px;
+  background:var(--green);border-radius:50%;
+  box-shadow:0 0 8px rgba(34,197,94,.9);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.6)}}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,5.5vw,68px);
+  font-weight:700;
+  line-height:1.05;
+  color:var(--ink);
+  letter-spacing:-.01em;
+  margin-bottom:24px;
+}
+.hero h1 em{font-style:italic;color:var(--accent);text-shadow:var(--glow-accent)}
+.hero-sub{
+  font-family:'Lato',sans-serif;font-weight:300;
+  font-size:17px;line-height:1.7;
+  color:var(--ink2);max-width:700px;margin-bottom:40px;
+}
+.hero-sub strong{color:var(--ink);font-weight:700}
+
+/* Dual phase cards */
+.phase-duo{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+  margin-top:32px;
+}
+.phase-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:26px 26px;
+  box-shadow:var(--sh-md);
+  position:relative;
+  transition:transform .25s, box-shadow .25s;
+  overflow:hidden;
+}
+.phase-card::after{
+  content:'';position:absolute;inset:0;border-radius:6px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.025), transparent 70%);
+  pointer-events:none;
+}
+.phase-card.in{border-top:2px solid var(--accent);box-shadow:var(--sh-md),var(--glow-accent)}
+.phase-card.out{border-top:2px solid var(--green);box-shadow:var(--sh-md),var(--glow-green)}
+.phase-card:hover{transform:translateY(-3px)}
+
+.phase-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.phase-icon{
+  width:40px;height:40px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.phase-card.in .phase-icon{
+  background:rgba(64,88,238,.1);
+  border:1px solid rgba(64,88,238,.25);
+  color:var(--accent);
+  box-shadow:0 0 20px rgba(64,88,238,.15);
+}
+.phase-card.out .phase-icon{
+  background:rgba(34,197,94,.1);
+  border:1px solid rgba(34,197,94,.25);
+  color:var(--green);
+  box-shadow:0 0 20px rgba(34,197,94,.15);
+}
+.phase-icon svg{width:20px;height:20px}
+.phase-label{
+  font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  display:block;margin-bottom:4px;
+}
+.phase-card.in .phase-label{color:var(--accent)}
+.phase-card.out .phase-label{color:var(--green)}
+.phase-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:600;color:var(--ink);
+  line-height:1.3;
+}
+.phase-card h3 em{font-style:italic}
+.phase-card.in h3 em{color:var(--accent)}
+.phase-card.out h3 em{color:var(--green)}
+.phase-card p{font-size:13.5px;color:var(--ink2);line-height:1.6;margin-top:10px}
+.phase-steps{
+  margin-top:14px;padding-top:14px;border-top:1px solid var(--borderL);
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.phase-steps span{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:2px;
+  border:1px solid var(--border);color:var(--mid);
+}
+.phase-card.in .phase-steps span{color:var(--accent);border-color:rgba(64,88,238,.25);background:rgba(64,88,238,.05)}
+.phase-card.out .phase-steps span{color:var(--green);border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.05)}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.container{max-width:1120px;margin:0 auto;padding:0 52px}
+section{padding-top:96px;position:relative}
+section:last-of-type{padding-bottom:120px}
+
+.section-num{
+  position:absolute;right:-16px;top:60px;
+  font-family:'Playfair Display',serif;
+  font-size:180px;font-style:italic;
+  color:rgba(64,88,238,.03);font-weight:700;
+  pointer-events:none;line-height:1;
+}
+
+.sec-tag{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);
+  border:1px solid rgba(64,88,238,.25);
+  background:rgba(64,88,238,.06);
+  padding:5px 12px;border-radius:2px;
+  margin-bottom:18px;
+}
+.sec-tag.green{color:var(--green);border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.06)}
+.sec-tag.gold{color:var(--gold);border-color:rgba(240,180,41,.25);background:rgba(240,180,41,.06)}
+.sec-tag.red{color:var(--red);border-color:rgba(248,113,113,.25);background:rgba(248,113,113,.06)}
+
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,3.2vw,38px);
+  font-weight:600;color:var(--ink);
+  line-height:1.2;margin-bottom:18px;
+}
+h2 em{font-style:italic;color:var(--accent)}
+h2 em.green{color:var(--green)}
+
+h3{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:600;color:var(--ink);
+  margin-bottom:10px;
+}
+.lead{
+  font-family:'Lato',sans-serif;font-weight:300;
+  font-size:16px;line-height:1.7;color:var(--ink2);
+  max-width:720px;margin-bottom:40px;
+}
+.lead strong{color:var(--ink);font-weight:700}
+
+/* ============================================
+   STEPS (grande liste numérotée)
+   ============================================ */
+.steps-list{
+  list-style:none;counter-reset:step;
+  display:flex;flex-direction:column;gap:14px;
+  margin-top:24px;
+}
+.step-item{
+  counter-increment:step;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:22px 26px 22px 22px;
+  box-shadow:var(--sh-md);
+  display:grid;grid-template-columns:60px 1fr;gap:20px;
+  align-items:flex-start;
+  position:relative;
+  transition:transform .25s,box-shadow .25s;
+  overflow:hidden;
+}
+.step-item::after{
+  content:'';position:absolute;inset:0;border-radius:6px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.02), transparent 70%);
+  pointer-events:none;
+}
+.step-item:hover{transform:translateX(3px);box-shadow:var(--sh-lg),var(--glow-accent)}
+
+.step-num{
+  font-family:'Playfair Display',serif;
+  font-size:44px;font-style:italic;font-weight:700;
+  color:var(--accent);opacity:.9;
+  line-height:.9;
+  text-shadow:var(--glow-accent);
+  padding-top:4px;
+  display:block;
+}
+.step-num::before{content:counter(step,decimal-leading-zero)}
+
+.step-body h3{
+  font-family:'Playfair Display',serif;
+  font-size:19px;font-weight:600;color:var(--ink);
+  margin-bottom:8px;line-height:1.3;
+}
+.step-body h3 em{font-style:italic;color:var(--accent)}
+.step-body p{font-size:14px;color:var(--ink2);line-height:1.65}
+.step-body p strong{color:var(--ink);font-weight:700}
+.step-body p + p{margin-top:8px}
+
+/* variantes couleur par step */
+.step-item.ok{border-left:3px solid var(--green);box-shadow:var(--sh-md),var(--glow-green)}
+.step-item.ok .step-num{color:var(--green);text-shadow:var(--glow-green)}
+.step-item.ok .step-body h3 em{color:var(--green)}
+
+.step-item.warn-i{border-left:3px solid var(--gold);box-shadow:var(--sh-md),var(--glow-gold)}
+.step-item.warn-i .step-num{color:var(--gold);text-shadow:var(--glow-gold)}
+.step-item.warn-i .step-body h3 em{color:var(--gold)}
+
+.step-item.alert{border-left:3px solid var(--red);box-shadow:var(--sh-md),var(--glow-red)}
+.step-item.alert .step-num{color:var(--red);text-shadow:var(--glow-red)}
+.step-item.alert .step-body h3 em{color:var(--red)}
+
+/* tag inline dans step */
+.step-tag{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 9px;border-radius:2px;
+  margin-left:10px;vertical-align:middle;
+}
+.step-tag.action{color:var(--accent);background:rgba(64,88,238,.08);border:1px solid rgba(64,88,238,.22)}
+.step-tag.result{color:var(--green);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22)}
+
+/* inline code (apps mentionnées) */
+.app-tag{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;
+  color:var(--accent);
+  background:rgba(64,88,238,.1);
+  border:1px solid rgba(64,88,238,.2);
+  padding:2px 8px;border-radius:2px;
+  margin:0 2px;
+}
+
+/* ============================================
+   EMPTY FIELDS BOX (cases à laisser vides)
+   ============================================ */
+.empty-box{
+  margin-top:22px;padding:22px 26px;border-radius:0 6px 6px 0;
+  background:rgba(240,180,41,.05);
+  border:1px solid rgba(240,180,41,.18);
+  border-left:3px solid var(--gold);
+  box-shadow:0 0 40px rgba(240,180,41,.04),var(--sh-sm);
+}
+.empty-label{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.empty-label svg{width:14px;height:14px}
+.empty-box h3{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:600;color:var(--ink);
+  margin-bottom:12px;
+}
+.empty-box h3 em{font-style:italic;color:var(--gold)}
+.empty-fields{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin-top:12px;
+}
+.empty-field{
+  background:var(--surf2);
+  border:1px solid var(--border);
+  border-left:2px solid var(--gold);
+  border-radius:3px;
+  padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
+}
+.empty-field .ef-icon{
+  color:var(--gold);
+  width:16px;height:16px;flex-shrink:0;
+  opacity:.8;
+}
+.empty-field .ef-icon svg{width:100%;height:100%}
+.empty-field span{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink2);
+}
+
+/* ============================================
+   EXIT SCENARIOS (3 types de sortie)
+   ============================================ */
+.exit-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  margin-top:28px;margin-bottom:18px;
+}
+.exit-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:22px 22px;
+  box-shadow:var(--sh-md);
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+}
+.exit-card::after{
+  content:'';position:absolute;inset:0;border-radius:6px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.025), transparent 70%);
+  pointer-events:none;
+}
+.exit-card.gain{border-top:2px solid var(--green);box-shadow:var(--sh-md),var(--glow-green)}
+.exit-card.loss{border-top:2px solid var(--red);box-shadow:var(--sh-md),var(--glow-red)}
+.exit-card.managed{border-top:2px solid var(--gold);box-shadow:var(--sh-md),var(--glow-gold)}
+.exit-card:hover{transform:translateY(-3px)}
+
+.exit-head{
+  display:flex;align-items:center;gap:10px;margin-bottom:12px;
+}
+.exit-num{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-style:italic;font-weight:700;
+  line-height:1;
+}
+.exit-card.gain .exit-num{color:var(--green);text-shadow:var(--glow-green)}
+.exit-card.loss .exit-num{color:var(--red);text-shadow:var(--glow-red)}
+.exit-card.managed .exit-num{color:var(--gold);text-shadow:var(--glow-gold)}
+
+.exit-tag{
+  font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 10px;border-radius:2px;
+}
+.exit-card.gain .exit-tag{color:var(--green);background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25)}
+.exit-card.loss .exit-tag{color:var(--red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25)}
+.exit-card.managed .exit-tag{color:var(--gold);background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.25)}
+
+.exit-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:600;color:var(--ink);
+  margin-bottom:10px;line-height:1.3;
+}
+.exit-card h3 em{font-style:italic}
+.exit-card.gain h3 em{color:var(--green)}
+.exit-card.loss h3 em{color:var(--red)}
+.exit-card.managed h3 em{color:var(--gold)}
+.exit-card p{font-size:13px;color:var(--ink2);line-height:1.6}
+.exit-card p strong{color:var(--ink);font-weight:700}
+
+.exit-rr{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--borderL);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.exit-rr .rr-label{
+  font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mid);
+}
+.exit-rr .rr-value{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;
+}
+.exit-card.gain .rr-value{color:var(--green);text-shadow:var(--glow-green)}
+.exit-card.loss .rr-value{color:var(--red);text-shadow:var(--glow-red)}
+.exit-card.managed .rr-value{color:var(--gold);text-shadow:var(--glow-gold)}
+
+/* ============================================
+   FINAL RECAP (Top !)
+   ============================================ */
+.final-block{
+  margin-top:28px;
+  background:rgba(34,197,94,.04);
+  border:1px solid rgba(34,197,94,.18);
+  border-left:3px solid var(--green);
+  border-radius:0 6px 6px 0;
+  padding:36px 40px;
+  box-shadow:var(--sh-md),var(--glow-green);
+  position:relative;
+  overflow:hidden;
+}
+.final-block::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle, rgba(34,197,94,.08), transparent 70%);
+  pointer-events:none;
+}
+.final-label{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--green);margin-bottom:16px;display:flex;align-items:center;gap:8px;
+  position:relative;
+}
+.final-label svg{width:14px;height:14px}
+.final-block h3{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(24px,3vw,34px);font-weight:700;
+  color:var(--ink);margin-bottom:14px;line-height:1.25;
+  position:relative;
+}
+.final-block h3 em{color:var(--green);font-style:italic;font-weight:700;text-shadow:var(--glow-green)}
+.final-block p{
+  font-family:'Lato',sans-serif;font-weight:300;
+  font-size:16px;color:var(--ink2);line-height:1.7;
+  position:relative;
+}
+.final-block p strong{color:var(--ink);font-weight:700}
+
+.final-checks{
+  margin-top:24px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  padding-top:22px;border-top:1px solid var(--borderL);
+  position:relative;
+}
+.final-check{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:rgba(34,197,94,.05);
+  border:1px solid rgba(34,197,94,.15);
+  border-radius:4px;
+}
+.final-check svg{
+  width:16px;height:16px;color:var(--green);
+  flex-shrink:0;
+}
+.final-check span{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink2);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer{
+  border-top:1px solid var(--border);
+  padding:48px 52px;
+  text-align:center;
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);
+}
+footer p + p{margin-top:8px}
+
+/* ============================================
+   FADE-IN
+   ============================================ */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width:900px){
+  .phase-duo{grid-template-columns:1fr}
+  .exit-grid{grid-template-columns:1fr}
+  .empty-fields{grid-template-columns:1fr}
+  .final-checks{grid-template-columns:1fr}
+  .nav-tabs{display:none}
+  .hero{padding:72px 32px 56px}
+  .container{padding:0 32px}
+  footer{padding:40px 32px}
+  .step-item{grid-template-columns:48px 1fr;padding:18px 20px;gap:14px}
+  .step-num{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">BBA<em> · Ressources</em></div>
+    <ul class="nav-tabs">
+      <li><a href="#intro" class="active">Intro</a></li>
+      <li><a href="#en-position">En position</a></li>
+      <li><a href="#sortie">Sortie</a></li>
+      <li><a href="#finalisation">Finalisation</a></li>
+    </ul>
+    <span class="nav-badge">Phase 3</span>
+  </div>
+</nav>
+
+<header class="hero" id="intro">
+  <div class="hero-eyebrow">Guide · Phase 3 · Journal de trading</div>
+  <h1>Processus <em>post-entrée</em><br>en position.</h1>
+  <p class="hero-sub">
+    <strong>La checklist du trader professionnel.</strong><br>
+    Une fois en position, ton job n'est pas terminé — il commence. Ce guide te donne le processus exact en 8 étapes pour ajuster ton outil, remplir ton journal, et calculer ton RR avec précision, de l'exécution à la sortie.
+  </p>
+
+  <div class="phase-duo fade-in">
+    <div class="phase-card in">
+      <div class="phase-header">
+        <div class="phase-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </div>
+        <div>
+          <span class="phase-label">Phase 1</span>
+          <h3>Quand je suis <em>en position.</em></h3>
+        </div>
+      </div>
+      <p>Tu viens d'entrer. Il faut maintenant ajuster ton outil sur TradingView, remplir Datatrackr, et laisser certaines cases vides jusqu'à la sortie.</p>
+      <div class="phase-steps">
+        <span>Étape 01</span><span>Étape 02</span><span>Étape 03</span><span>Étape 04</span>
+      </div>
+    </div>
+    <div class="phase-card out">
+      <div class="phase-header">
+        <div class="phase-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        </div>
+        <div>
+          <span class="phase-label">Phase 2</span>
+          <h3>Quand je sors <em>de position.</em></h3>
+        </div>
+      </div>
+      <p>Trois scénarios possibles — gain, perte pleine, perte managée. Chacun a sa manipulation pour obtenir le RR exact et finaliser le journal.</p>
+      <div class="phase-steps">
+        <span>Étape 05</span><span>Étape 06</span><span>Étape 07</span><span>Étape 08</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- EN POSITION -->
+<section id="en-position" class="container">
+  <span class="section-num">01</span>
+  <span class="sec-tag fade-in">Chapitre 01 · Quand je suis en position</span>
+  <h2 class="fade-in">Ajuster, documenter, <em>laisser ouvert.</em></h2>
+  <p class="lead fade-in">
+    Dès que ton ordre est exécuté, quatre actions s'enchaînent. <strong>Aucune ne concerne la sortie</strong> — on ne touche pas encore au RR, au gain ou au pourcentage. On prépare le terrain pour pouvoir clôturer proprement plus tard.
+  </p>
+
+  <ol class="steps-list">
+    <!-- Step 1 -->
+    <li class="step-item fade-in">
+      <span class="step-num"></span>
+      <div class="step-body">
+        <h3>Entrée en <em>position.</em></h3>
+        <p>Je viens d'entrer en position (achat ou vente). Mon ordre est <strong>exécuté</strong> sur <span class="app-tag">MetaTrader</span>. C'est le point de départ du processus — à partir d'ici, chaque étape compte pour la précision du journal.</p>
+      </div>
+    </li>
+
+    <!-- Step 2 -->
+    <li class="step-item fade-in">
+      <span class="step-num"></span>
+      <div class="step-body">
+        <h3>Ajustement de l'outil <em>Position.</em></h3>
+        <p>J'ajuste mon outil <strong>Position (achat ou vente)</strong> sur <span class="app-tag">TradingView</span>. Je le place sur la bougie de prise de position, au <strong>même prix que MetaTrader</strong>.</p>
+        <p>Cet alignement exact est ce qui va me permettre de calculer mon <strong>RR de manière professionnelle</strong> à la sortie — sans approximation, sans œil.</p>
+      </div>
+    </li>
+
+    <!-- Step 3 -->
+    <li class="step-item fade-in">
+      <span class="step-num"></span>
+      <div class="step-body">
+        <h3>Remplissage du <em>journal.</em></h3>
+        <p>J'ajoute mes graphiques (<strong>captures TradingView</strong>) dans mon journal pour garder la trace du contexte d'entrée. Je remplis ensuite ma nouvelle position dans <span class="app-tag">Datatrackr</span>.</p>
+        <p>Le but : figer le setup au moment de l'entrée, pas après coup.</p>
+      </div>
+    </li>
+
+    <!-- Step 4 — cases vides -->
+    <li class="step-item warn-i fade-in">
+      <span class="step-num"></span>
+      <div class="step-body">
+        <h3>Cases à laisser <em>vides.</em></h3>
+        <p>Tant que tu es en position, certaines colonnes du journal n'ont pas encore de valeur. <strong>Ne les remplis pas au feeling</strong> — attends la sortie pour avoir les chiffres exacts.</p>
+
+        <div class="empty-box" style="margin-top:16px;padding:18px 22px">
+          <span class="empty-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+            À laisser vide pour l'instant
+          </span>
+          <div class="empty-fields">
+            <div class="empty-field">
+              <span class="ef-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+              </span>
+              <span>RR</span>
+            </div>
+            <div class="empty-field">
+              <span class="ef-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              </span>
+              <span>% capital</span>
+            </div>
+            <div class="empty-field">
+              <span class="ef-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              <span>Gain / Perte</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- SORTIE -->
+<section id="sortie" class="container">
+  <span class="section-num">02</span>
+  <span class="sec-tag green fade-in">Chapitre 02 · Quand je sors de position</span>
+  <h2 class="fade-in">Trois scénarios de sortie, <em class="green">trois manipulations.</em></h2>
+  <p class="lead fade-in">
+    Selon ta sortie, la manip n'est pas la même. <strong>Gain, perte pleine, perte managée</strong> — chaque cas a sa méthode pour obtenir le RR exact que tu reporteras dans le journal.
+  </p>
+
+  <div class="exit-grid fade-in">
+    <!-- 5. Sortie en gain -->
+    <div class="exit-card gain">
+      <div class="exit-head">
+        <span class="exit-num">05</span>
+        <span class="exit-tag">Sortie en gain</span>
+      </div>
+      <h3>Je sors en <em>gain.</em></h3>
+      <p>Je déplace mon <strong>Take Profit</strong> sur le <strong>prix exact</strong> où je suis sorti. TradingView me donne alors le RR généré sur cette position.</p>
+      <div class="exit-rr">
+        <span class="rr-label">RR obtenu</span>
+        <span class="rr-value">+X R</span>
+      </div>
+    </div>
+
+    <!-- 6. Sortie en perte pleine -->
+    <div class="exit-card loss">
+      <div class="exit-head">
+        <span class="exit-num">06</span>
+        <span class="exit-tag">Sortie en perte pleine</span>
+      </div>
+      <h3>Je sors en <em>perte pleine.</em></h3>
+      <p>J'ai perdu <strong>−1R</strong> (une fois mon risque). Aucune manipulation nécessaire — le RR est de −1 par définition.</p>
+      <div class="exit-rr">
+        <span class="rr-label">RR obtenu</span>
+        <span class="rr-value">−1 R</span>
+      </div>
+    </div>
+
+    <!-- 7. Sortie en perte managée -->
+    <div class="exit-card managed">
+      <div class="exit-head">
+        <span class="exit-num">07</span>
+        <span class="exit-tag">Perte managée</span>
+      </div>
+      <h3>Je sors en <em>perte managée.</em></h3>
+      <p>Je suis sorti avant d'avoir pris mon SL complet. <strong>Manipulation TradingView requise</strong> pour calculer le RR exact (ex : −0,4R, −0,7R).</p>
+      <div class="exit-rr">
+        <span class="rr-label">RR obtenu</span>
+        <span class="rr-value">−X,X R</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINALISATION -->
+<section id="finalisation" class="container">
+  <span class="section-num">03</span>
+  <span class="sec-tag gold fade-in">Chapitre 03 · Finalisation du journal</span>
+  <h2 class="fade-in">Remplir les <em>cases manquantes.</em></h2>
+  <p class="lead fade-in">
+    Maintenant que tu connais ton RR exact, tu peux compléter le journal. <strong>C'est à ce moment précis</strong> qu'on remplit les colonnes laissées vides à l'étape 4 — pas avant.
+  </p>
+
+  <ol class="steps-list" style="counter-reset:step 7">
+    <li class="step-item ok fade-in">
+      <span class="step-num"></span>
+      <div class="step-body">
+        <h3>Finalisation <em>du journal.</em></h3>
+        <p>Je reprends les cases laissées vides pendant que j'étais en position, et je les remplis avec les valeurs définitives :</p>
+        <div class="empty-fields" style="margin-top:14px;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div class="empty-field" style="border-left-color:var(--green);background:rgba(34,197,94,.04)">
+            <span class="ef-icon" style="color:var(--green)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+            </span>
+            <span style="color:var(--ink)">RR final</span>
+          </div>
+          <div class="empty-field" style="border-left-color:var(--green);background:rgba(34,197,94,.04)">
+            <span class="ef-icon" style="color:var(--green)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+            </span>
+            <span style="color:var(--ink)">% capital généré</span>
+          </div>
+          <div class="empty-field" style="border-left-color:var(--green);background:rgba(34,197,94,.04)">
+            <span class="ef-icon" style="color:var(--green)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+            <span style="color:var(--ink)">Gain / Perte en €</span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+  <!-- FINAL RECAP -->
+  <div class="final-block fade-in">
+    <span class="final-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      Top — processus terminé
+    </span>
+    <h3>Tu viens de suivre le processus <em>parfaitement.</em></h3>
+    <p>
+      Ton <strong>journal est à jour</strong>, ton <strong>RR est précis</strong>, tes captures sont sauvegardées, tes chiffres sont exacts. Ce n'est pas un détail — c'est exactement ce qui sépare un trader qui progresse d'un trader qui tourne en rond. Tu as joué ta position comme un pro, de l'entrée à la sortie.
+    </p>
+
+    <div class="final-checks">
+      <div class="final-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>Journal à jour</span>
+      </div>
+      <div class="final-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>RR précis</span>
+      </div>
+      <div class="final-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>Processus respecté</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Bientôt Blindé Académie · Processus Post-Entrée · La checklist du trader professionnel</p>
+  <p>© 2025 BBA — Tous droits réservés</p>
+</footer>
+
+<script>
+const fades = document.querySelectorAll('.fade-in');
+const fo = new IntersectionObserver(entries => {
+  entries.forEach((en, i) => {
+    if(en.isIntersecting){
+      setTimeout(() => en.target.classList.add('visible'), i * 55);
+      fo.unobserve(en.target);
+    }
+  });
+}, { rootMargin: '0px 0px -40px 0px' });
+fades.forEach(f => fo.observe(f));
+
+const sections = document.querySelectorAll('section[id], header[id]');
+const links = document.querySelectorAll('.nav-tabs a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector('.nav-tabs a[href="#' + en.target.id + '"]');
+      if(link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-35% 0px -60% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
